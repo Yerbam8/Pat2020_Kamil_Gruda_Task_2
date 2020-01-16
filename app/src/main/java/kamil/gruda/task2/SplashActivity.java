@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 
-import static kamil.gruda.task2.LoginActivity.EMAIL;
-import static kamil.gruda.task2.LoginActivity.ISLOGIN;
-import static kamil.gruda.task2.LoginActivity.SHARED;
+import java.text.MessageFormat;
+import java.util.Objects;
+
+import static kamil.gruda.task2.LoginActivity.EMAIL_PROP_KEY;
+import static kamil.gruda.task2.LoginActivity.ISLOGIN_PROP_KEY;
+import static kamil.gruda.task2.LoginActivity.SHARED_PROP_NAME;
 
 public class SplashActivity extends AppCompatActivity {
     private static final int SPLASH_SCREEN_TIME = 6000;
@@ -22,15 +25,15 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         loadData();
-        String name = preferences.getString(EMAIL, " ");
+        String name = preferences.getString(EMAIL_PROP_KEY, " ");
         TextView textView = findViewById(R.id.splashName);
-        final boolean isLog = preferences.getBoolean(ISLOGIN, false);
+        final boolean isLog = preferences.getBoolean(ISLOGIN_PROP_KEY, false);
 
         if (isLog) {
-            textView.setText("Welcome " + name);
+            textView.setText(MessageFormat.format("{0} {1}", getString(R.string.welcome), name));
         }
 
         runnable = () -> {
@@ -47,7 +50,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        preferences = getSharedPreferences(SHARED, 0);
+        preferences = getSharedPreferences(SHARED_PROP_NAME, 0);
     }
 
 

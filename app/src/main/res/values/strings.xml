@@ -4,5 +4,16 @@
     <string name="password">Password:</string>
     <string name="email">Email:</string>
     <string name="login">Login</string>
+    <string name="logout_toast">Logout</string>
+    <string name="login_toast">Login into</string>
+    <string name="welcome">Welcome </string>
+    <string name="empty_field_error">Field can\'t be empty</string>
+    <string name="white_spaces_error">White spaces are not allowed!</string>
+    <string name="lowercase_error">Only lowercase</string>
+    <string name="empty_email_error">Email can\'t be empty</string>
+    <string name="valid_email_error">Please enter a valid email address</string>
+    <string name="empty_password_error">Field can\'t be empty</string>
+    <string name="weak_password_error">Password too weak</string>
+    <string name="logout">Logout</string>
 
 </resources>

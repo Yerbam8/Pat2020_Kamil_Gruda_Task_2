@@ -26,7 +26,9 @@
         android:layout_marginEnd="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewLogin"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:inputType="text"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textViewEmail"
@@ -48,7 +50,9 @@
         android:layout_marginEnd="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLogin"
+        android:inputType="textEmailAddress"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textViewPassword"
@@ -71,7 +75,9 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
+        android:inputType="textPassword"
+        android:importantForAutofill="no" />
 
 
 
