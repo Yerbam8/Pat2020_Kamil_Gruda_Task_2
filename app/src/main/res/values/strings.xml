@@ -15,5 +15,7 @@
     <string name="empty_password_error">Field can\'t be empty</string>
     <string name="weak_password_error">Password too weak</string>
     <string name="logout">Logout</string>
+    <string name="timeBundle">time</string>
+    <string name="timeToUpdateBundle">updateTime</string>
 
 </resources>

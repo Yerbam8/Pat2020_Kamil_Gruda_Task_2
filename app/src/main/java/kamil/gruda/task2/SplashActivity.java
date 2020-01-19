@@ -53,10 +53,10 @@ public class SplashActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
 
-            timeOnEnd = savedInstanceState.getLong("time");
-            timeToUpdate = savedInstanceState.getLong("updateTime");
+            timeOnEnd = savedInstanceState.getLong(getString(R.string.timeBundle));
+            timeToUpdate = savedInstanceState.getLong(getString(R.string.timeToUpdateBundle));
             timeToUpdate = timeToUpdate - timeOnEnd;
-            savedInstanceState.putLong("updateTime", timeToUpdate);
+            savedInstanceState.putLong(getString(R.string.timeToUpdateBundle), timeToUpdate);
             handler.postDelayed(runnable, timeToUpdate);
 
         } else {
@@ -81,16 +81,16 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putLong("time", timeOnEnd);
-        outState.putLong("updateTime", timeToUpdate);
+        outState.putLong(getString(R.string.timeBundle), timeOnEnd);
+        outState.putLong(getString(R.string.timeToUpdateBundle), timeToUpdate);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        timeOnEnd = savedInstanceState.getLong("time");
-        timeToUpdate = savedInstanceState.getLong("updateTime");
+        timeOnEnd = savedInstanceState.getLong(getString(R.string.timeBundle));
+        timeToUpdate = savedInstanceState.getLong(getString(R.string.timeToUpdateBundle));
 
     }
 
