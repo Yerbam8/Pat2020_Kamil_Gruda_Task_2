@@ -1,5 +1,6 @@
 package kamil.gruda.task2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,23 +20,27 @@ public class SplashActivity extends AppCompatActivity {
     private static final int SPLASH_SCREEN_TIME = 6000;
     private Handler handler;
     private Runnable runnable;
-    private SharedPreferences preferences;
+    private long timeOnStart;
+    private long timeOnEnd;
+    private long timeToUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        timeOnStart = System.currentTimeMillis();
 
-        loadData();
+
+        final SharedPreferences preferences = getSharedPreferences(SHARED_PROP_NAME, 0);
         String name = preferences.getString(EMAIL_PROP_KEY, " ");
         TextView textView = findViewById(R.id.splashName);
         final boolean isLog = preferences.getBoolean(ISLOGIN_PROP_KEY, false);
 
+
         if (isLog) {
             textView.setText(MessageFormat.format("{0} {1}", getString(R.string.welcome), name));
         }
-
         runnable = () -> {
             if (isLog) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -44,15 +49,28 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         handler = new Handler();
-        handler.postDelayed(runnable, SPLASH_SCREEN_TIME);
 
+
+        if (savedInstanceState != null) {
+
+            timeOnEnd = savedInstanceState.getLong("time");
+            timeToUpdate = savedInstanceState.getLong("updateTime");
+            timeToUpdate = timeToUpdate - timeOnEnd;
+            savedInstanceState.putLong("updateTime", timeToUpdate);
+            handler.postDelayed(runnable, timeToUpdate);
+
+        } else {
+            handler.postDelayed(runnable, SPLASH_SCREEN_TIME);
+            timeToUpdate = 6000L;
+        }
 
     }
 
-    private void loadData() {
-        preferences = getSharedPreferences(SHARED_PROP_NAME, 0);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timeOnEnd = System.currentTimeMillis() - timeOnStart;
     }
-
 
     @Override
     protected void onDestroy() {
@@ -60,4 +78,21 @@ public class SplashActivity extends AppCompatActivity {
         if (handler != null && runnable != null)
             handler.removeCallbacks(runnable);
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putLong("time", timeOnEnd);
+        outState.putLong("updateTime", timeToUpdate);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        timeOnEnd = savedInstanceState.getLong("time");
+        timeToUpdate = savedInstanceState.getLong("updateTime");
+
+    }
+
+
 }

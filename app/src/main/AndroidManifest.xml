@@ -15,8 +15,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashActivity"
-            android:noHistory="true"
-            android:configChanges="orientation|screenSize|keyboardHidden">
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
